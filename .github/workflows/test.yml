@@ -1,0 +1,19 @@
+---
+name: Lint the CI files
+    
+"on":
+  pull_request:
+  push:
+    
+# this allows a subsequently queued workflow run to interrupt previous runs in pull requests only
+concurrency:
+    group: "${{ github.workflow }}-${{ github.ref }}"
+    cancel-in-progress: ${{ startsWith(github.ref, 'refs/pull/') }}
+    
+jobs:
+  check-actions:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-valgrind
