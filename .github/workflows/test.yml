@@ -16,5 +16,8 @@ jobs:
     steps:
       - uses: taiki-e/install-action@v2
         with:
-          tool: cargo-valgrind
-      - run: which valgrind
+          tool: cargo-valgrind,xbuild
+      - run: |
+          which valgrind ||:
+      - run: |
+          x doctor ||:
